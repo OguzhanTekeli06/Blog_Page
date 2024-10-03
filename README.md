@@ -11,8 +11,8 @@ Görev: Kullanıcıdan gelen istekleri işler, gerekli veriyi modelden alır ve 
 Örnek: Bir kullanıcının giriş bilgilerini kontrol eden ve doğruluğunu model üzerinden sorgulayan bir LoginController.
 
 Proje Yapısı
--Controllers klasörü: Uygulamadaki iş mantığını yöneten kontrolör sınıfları burada bulunur.
--Models klasörü: Veritabanı ile ilgili işlevler ve veri yapıları buraya yerleştirilir.
--Views klasörü: HTML, Razor gibi kullanıcıya gösterilecek bileşenler burada yer alır.
--wwwroot klasörü: Statik dosyalar (CSS, JavaScript, resimler) burada bulunur.
--appsettings.json: Uygulamanın yapılandırma ayarlarını içerir (örneğin, veritabanı bağlantı dizgileri).
+- Controllers klasörü: Uygulamadaki iş mantığını yöneten kontrolör sınıfları burada bulunur.
+- Models klasörü: Veritabanı ile ilgili işlevler ve veri yapıları buraya yerleştirilir.
+- Views klasörü: HTML, Razor gibi kullanıcıya gösterilecek bileşenler burada yer alır.
+- wwwroot klasörü: Statik dosyalar (CSS, JavaScript, resimler) burada bulunur.
+- appsettings.json: Uygulamanın yapılandırma ayarlarını içerir (örneğin, veritabanı bağlantı dizgileri).
