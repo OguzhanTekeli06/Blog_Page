@@ -122,3 +122,10 @@ using (var context = new MyDbContext())
 
 Sonuç:
  Entity Framework, geliştiricilere veritabanı işlemlerini daha kolay ve verimli bir şekilde yapma imkanı sunar. ORM teknolojileri sayesinde, uygulama geliştirme sürecini hızlandırır ve kodun okunabilirliğini artırır. Bu nedenle, .NET uygulamalarında sıklıkla tercih edilen bir kütüphanedir.
+
+
+ ------------------------------------------
+ Veri Tabanı:
+
+ 
+ ![alt text](<Ekran görüntüsü 2024-10-03 223504.png>)
