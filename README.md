@@ -47,6 +47,12 @@ Bu dosya, form doğrulaması (validation) için gerekli olan JavaScript dosyalar
 Bu dosya, hatalı bir sayfa yüklendiğinde gösterilir.
 Mesela, kullanıcı olmayan bir sayfaya giderse (404 hatası) veya sunucu tarafında bir hata oluşursa bu dosya çalışır ve kullanıcıya hata mesajı gösterir.
 Özetle: Web sitesinde bir hata olduğunda kullanıcıya gösterilecek hata sayfasıdır.
+- _ViewImports.cshtml
+_ViewImports.cshtml, ASP.NET Core MVC projelerinde, tüm view dosyalarına (cshtml dosyalarına) ortak olarak eklenen direktifleri (using gibi) tanımlamak için kullanılır.
+Bu dosya, projendeki her view dosyası için bazı kütüphaneleri, yardımcı metodları ve TagHelper'ları (HTML tag'leriyle çalışan özel C# sınıfları) otomatik olarak ekler.
+Projede sıkça kullanılan namespace'leri burada tanımlayabilirsin. Böylece her sayfada tekrar tekrar @using yazmana gerek kalmaz.
+Bu direktifle ASP.NET Core MVC'deki TagHelper'ları kullanabilirsin. TagHelper'lar, HTML etiketlerine özellikler ekleyerek Razor syntax'ı ve C# kodunu daha temiz yazmanı sağlar. @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+cshtml dosyalarıyla ilişkilendirilen model sınıflarını burada tanımlayabilirsin. Her view dosyası için tek tek model sınıfı tanımlamak yerine, burada bir defa tanımlayıp tüm view'larda kullanabilirsin. @model ile.
 3. Bu dosyalar nasıl çalışır?
 Controller (Kontrolcü) Nedir?
 Web sitenin kontrolcüsü (Controller), hangi sayfaya (view) gitmesi gerektiğini belirleyen kısımdır.
@@ -70,3 +76,6 @@ _Layout.cshtml: Tüm sayfalar için ortak olan yapı (örneğin menü ve footer)
 _ViewStart.cshtml: Sayfalar açılmadan önce hangi layout'un kullanılacağını belirler.
 _ValidationScriptsPartial.cshtml: Form doğrulama script'lerini yükler.
 Error.cshtml: Hata sayfası.
+_ViewImports.cshtml, projendeki tüm view dosyalarına ortak olan using direktiflerini ve TagHelper'ları tanımlar.
+Bu sayede her sayfada ekstra tanımlama yapmana gerek kalmadan belirlediğin namespace'ler ve TagHelper'lar tüm view'larda otomatik olarak geçerli olur.
+Bu dosya, kodu düzenli ve temiz tutmanı sağlar, her seferinde tekrar tekrar aynı kodları yazmaktan kurtarır.
