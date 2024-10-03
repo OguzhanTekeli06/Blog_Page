@@ -79,3 +79,46 @@ Error.cshtml: Hata sayfası.
 _ViewImports.cshtml, projendeki tüm view dosyalarına ortak olan using direktiflerini ve TagHelper'ları tanımlar.
 Bu sayede her sayfada ekstra tanımlama yapmana gerek kalmadan belirlediğin namespace'ler ve TagHelper'lar tüm view'larda otomatik olarak geçerli olur.
 Bu dosya, kodu düzenli ve temiz tutmanı sağlar, her seferinde tekrar tekrar aynı kodları yazmaktan kurtarır.
+
+
+
+
+**Entity Framework (EF)**, Microsoft tarafından geliştirilen bir Object-Relational Mapping (ORM) kütüphanesidir. EF, .NET uygulamaları ile veritabanları arasında bir köprü görevi görerek, geliştiricilerin veritabanı ile etkileşimde bulunmalarını kolaylaştırır. İşte Entity Framework'ün bazı temel işlevleri ve faydaları:
+
+1. Veritabanı İşlemlerini Kolaylaştırma
+EF, veritabanı işlemlerini C# nesneleri ile gerçekleştirmeyi sağlar. Bu, SQL sorguları yazmadan veritabanındaki verilere erişim, güncelleme ve silme işlemleri yapmanıza olanak tanır.
+
+2. Nesne Modelleri Oluşturma
+EF, veritabanındaki tabloları nesne modellerine (class) dönüştürerek, bu nesnelerle çalışmanızı sağlar. Böylece veritabanı yapısı ile kod yapısı arasında bir eşleme (mapping) oluşturur.
+
+3. LINQ Desteği
+EF, LINQ (Language Integrated Query) desteği ile birlikte gelir. Bu, SQL benzeri sorguları C# dilinde yazmanıza olanak tanır. LINQ, daha okunabilir ve yazımı kolay sorgular oluşturmanıza yardımcı olur.
+
+4. Veritabanı Geçmişi Yönetimi
+EF, veritabanı değişikliklerini takip ederek, modelinize göre veritabanını otomatik olarak güncelleyebilir. Migration özelliği sayesinde veritabanı şemasındaki değişiklikleri yönetmek oldukça kolaydır.
+
+5. Verimlilik ve Performans
+EF, optimize edilmiş sorgular oluşturur ve veritabanı ile olan etkileşimleri en iyi şekilde yönetir. Bunun sonucunda, uygulamanızın performansı artabilir.
+
+6. Destek ve Geliştirme Kolaylığı
+Entity Framework, .NET ekosisteminin bir parçası olduğundan, büyük bir topluluğa ve güçlü belgelere sahiptir. Bu sayede sorunlarınızı çözmek daha kolaydır ve yeni özellikler eklemek daha hızlı gerçekleşir.
+
+7. Farklı Veritabanı Sistemleri ile Uyumlu
+EF, çeşitli veritabanı yönetim sistemleriyle (SQL Server, PostgreSQL, MySQL, SQLite, vb.) çalışabilir. Bu, farklı projelerde farklı veritabanlarını kullanmanızı kolaylaştırır.
+
+Örnek Kullanım:
+
+using (var context = new MyDbContext())
+{
+    // Yeni bir kullanıcı ekleme
+    var user = new User { Name = "John Doe", Email = "john@example.com" };
+    context.Users.Add(user);
+    context.SaveChanges(); // Değişiklikleri veritabanına kaydet
+
+    // Kullanıcıları sorgulama
+    var users = context.Users.ToList();
+}
+
+
+Sonuç:
+ Entity Framework, geliştiricilere veritabanı işlemlerini daha kolay ve verimli bir şekilde yapma imkanı sunar. ORM teknolojileri sayesinde, uygulama geliştirme sürecini hızlandırır ve kodun okunabilirliğini artırır. Bu nedenle, .NET uygulamalarında sıklıkla tercih edilen bir kütüphanedir.
