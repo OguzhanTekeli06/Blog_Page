@@ -7,10 +7,24 @@ namespace AdminBlog.Controllers;
 public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
-
-    public HomeController(ILogger<HomeController> logger)
+    private readonly BlogContext _context;
+    public HomeController(ILogger<HomeController> logger,BlogContext context)
     {
         _logger = logger;
+        _context = context;
+    }
+
+    public async Task<IActionResult> AddCategory(Category category){
+        await _context.AddAsync(category);
+
+        await _context.SaveChangesAsync();
+
+        return RedirectToAction(nameof(Category));
+    }
+
+    public IActionResult Category()
+    {
+        return View();
     }
 
     public IActionResult Index()
