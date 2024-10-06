@@ -129,3 +129,21 @@ Sonuç:
 
  
  ![alt text](<Ekran görüntüsü 2024-10-03 223504.png>)
+
+
+
+
+ Veri tabanıına bağlanma işlemleri:
+ appsettings.json dosyasına kendi veritabanımızı ekledik 
+"ConnectionStrings": {
+    "BlogDb": "Server=DESKTOP-0QE53DC;Database=BlogDb;Trusted_Connection=True;Encrypt=False"
+  },
+program.cs dosyasına 
+var connectionString = builder.Configuration.GetConnectionString("BlogDb");
+builder.Services.AddDbContext<BlogContext>(options => options.UseSqlServer(connectionString));
+daha sonra terminalde 
+>dotnet ef migrations add first
+>dotnet ef database update
+kodlarını çalıştırdık.( Çalışmazlarsa önce -> dotnet tool install --global dotnet-ef)
+Böylece veri tabanımız ve modellere göre tablolarımız oluşturulumuş oldu.
+  
