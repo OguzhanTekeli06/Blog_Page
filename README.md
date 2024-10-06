@@ -146,4 +146,8 @@ daha sonra terminalde
 >dotnet ef database update
 kodlarını çalıştırdık.( Çalışmazlarsa önce -> dotnet tool install --global dotnet-ef)
 Böylece veri tabanımız ve modellere göre tablolarımız oluşturulumuş oldu.
-  
+
+İndirilen Paketler:(bu komutlar ile)
+dotnet add package Microsoft.EntityFrameworkCore
+dotnet add package Microsoft.EntityFrameworkCore.SqlServer
+dotnet add package Microsoft.EntityFrameworkCore.Design 
