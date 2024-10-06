@@ -1,3 +1,5 @@
 # .NET Core
-bin/
-obj/
+MyBlog/bin/
+MyBlog/obj/
+AdminBlog/bin/
+AdminBlog/obj/
