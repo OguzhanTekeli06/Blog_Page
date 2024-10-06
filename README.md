@@ -156,23 +156,24 @@ dotnet add package Microsoft.EntityFrameworkCore.Design
 
 Controller Detayları:
 
-**using System.Diagnostics;**
-**using Microsoft.AspNetCore.Mvc;**
-**using AdminBlog.Models;**
+**using System.Diagnostics;** <br>
+**using Microsoft.AspNetCore.Mvc;** <br> 
+**using AdminBlog.Models;** <br>
 
-using System.Diagnostics;: Bu kütüphane, sistemle ilgili tanılama işlemleri için kullanılır. Örneğin, hata ayıklama veya günlüğe kaydetme işlemleri için faydalıdır.
-using Microsoft.AspNetCore.Mvc;: Bu kütüphane ASP.NET Core'da MVC yapısının (Model-View-Controller) temel sınıflarını sağlar. Burada Controller sınıfını kullanmak için bu kütüphane dahil ediliyor.
-using AdminBlog.Models;: Bu da AdminBlog projesindeki modellerin bulunduğu namespace. Bu kısımda BlogContext ve Category gibi modelleri kullanmak için gerekli.
+using System.Diagnostics;: Bu kütüphane, sistemle ilgili tanılama işlemleri için kullanılır. Örneğin, hata ayıklama veya günlüğe kaydetme işlemleri için faydalıdır.  
+using Microsoft.AspNetCore.Mvc;: Bu kütüphane ASP.NET Core'da MVC yapısının (Model-View-Controller) temel sınıflarını sağlar. Burada Controller sınıfını kullanmak için bu kütüphane dahil ediliyor.  
+using AdminBlog.Models;: Bu da AdminBlog projesindeki modellerin bulunduğu namespace. Bu kısımda BlogContext ve Category gibi modelleri kullanmak için gerekli.  
 
-**namespace AdminBlog.Controllers;**
+**namespace AdminBlog.Controllers;**  
 
-Bu kod, AdminBlog.Controllers adında bir namespace (isim alanı) oluşturur. Bu, projedeki sınıfları düzenlemek için kullanılır ve aynı zamanda bu kontrolörün proje içindeki diğer parçalardan ayırt edilmesini sağlar.
+Bu kod, AdminBlog.Controllers adında bir namespace (isim alanı) oluşturur. Bu, projedeki sınıfları düzenlemek için kullanılır ve aynı zamanda bu kontrolörün proje içindeki diğer parçalardan ayırt edilmesini sağlar.  
 
-**public class HomeController : Controller**
+**public class HomeController : Controller**  
+
 public class HomeController : Controller: HomeController adında bir sınıf oluşturur ve bu sınıf, ASP.NET Core'un Controller sınıfından türetilmiştir. Controller sınıfı, MVC modelinde kullanılan temel sınıftır ve HTTP isteklerini işlemede yardımcı olur.
 
-**private readonly ILogger<HomeController> _logger;
-private readonly BlogContext _context;**
+**private readonly ILogger<HomeController> _logger;  
+private readonly BlogContext _context;**  
 
 private readonly ILogger<HomeController> _logger;: Bu satır, ILogger türünde bir logger nesnesi tanımlar. Logger, uygulamada hataları veya diğer bilgileri kaydetmek için kullanılır. HomeController tipi, hangi kontrolör için logger kullanıldığını belirler.
 private readonly BlogContext _context;: Bu satır ise, veritabanı işlemleri yapmak için kullanılan BlogContext nesnesini tanımlar. Bu, Entity Framework ile çalışan ve veritabanına erişim sağlayan bir sınıf.
@@ -193,11 +194,11 @@ _logger = logger; ve _context = context;: Parametre olarak gelen logger ve conte
     return RedirectToAction(nameof(Category));
 }**
 
-public async Task<IActionResult> AddCategory(Category category): Bu, bir kategori eklemek için kullanılan asenkron bir metottur. Category adında bir model nesnesi parametre olarak alınır.  
-async Task<IActionResult>: Bu, metodun asenkron olduğunu belirtir. Asenkron metotlar, uzun süren işlemleri engellemeden yapılmasını sağlar.
-await _context.AddAsync(category);: Bu satır, veritabanına yeni bir kategori ekler. await ifadesi, bu işlemin asenkron yapılmasını sağlar.
-await _context.SaveChangesAsync();: Bu satır ise, yapılan değişiklikleri veritabanına kaydeder. Yine asenkron olarak çalışır.
-return RedirectToAction(nameof(Category));: Bu satır, kategori ekleme işlemi tamamlandıktan sonra Category adlı aksiyona (sayfaya) yönlendirme yapar.
+public async Task<IActionResult> AddCategory(Category category): Bu, bir kategori eklemek için kullanılan asenkron bir metottur. Category adında bir model nesnesi parametre olarak alınır.    
+async Task<IActionResult>: Bu, metodun asenkron olduğunu belirtir. Asenkron metotlar, uzun süren işlemleri engellemeden yapılmasını sağlar.  
+await _context.AddAsync(category);: Bu satır, veritabanına yeni bir kategori ekler. await ifadesi, bu işlemin asenkron yapılmasını sağlar.  
+await _context.SaveChangesAsync();: Bu satır ise, yapılan değişiklikleri veritabanına kaydeder. Yine asenkron olarak çalışır.  
+return RedirectToAction(nameof(Category));: Bu satır, kategori ekleme işlemi tamamlandıktan sonra Category adlı aksiyona (sayfaya) yönlendirme yapar.  
 
 **public IActionResult Category()
 {
@@ -218,7 +219,7 @@ public IActionResult Index(): Bu, ana sayfa (index) için bir aksiyon metodudur.
     return View();
 }**
 
-public IActionResult Privacy(): Bu metod, "Privacy" sayfasını döndüren bir aksiyondur. Gizlilik politikası gibi sayfalar için kullanılabilir.
+public IActionResult Privacy(): Bu metod, "Privacy" sayfasını döndüren bir aksiyondur. Gizlilik politikası gibi sayfalar için kullanılabilir.  
 
 **[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
 public IActionResult Error()
@@ -226,10 +227,10 @@ public IActionResult Error()
     return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
 }**
 
-[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]: Bu satır, hata sayfası için bir önbellekleme (cache) stratejisi belirler. Bu sayfanın önbelleğe alınmamasını sağlar.
-Duration = 0: Önbellek süresi sıfırdır, yani sayfa önbelleğe alınmaz.
-Location = ResponseCacheLocation.None: Önbelleğin hiçbir yerde tutulmamasını sağlar.
-NoStore = true: Tarayıcının bu sayfayı depolamaması gerektiğini belirtir.
-public IActionResult Error(): Hata sayfasını döndüren aksiyon metodudur.
-return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });: Hata sayfasına bir ErrorViewModel ile birlikte döner. RequestId, hatanın izlenebilir olması için kullanılır.
+[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]: Bu satır, hata sayfası için bir önbellekleme (cache) stratejisi belirler. Bu sayfanın önbelleğe alınmamasını sağlar.  
+Duration = 0: Önbellek süresi sıfırdır, yani sayfa önbelleğe alınmaz.  
+Location = ResponseCacheLocation.None: Önbelleğin hiçbir yerde tutulmamasını sağlar.  
+NoStore = true: Tarayıcının bu sayfayı depolamaması gerektiğini belirtir.  
+public IActionResult Error(): Hata sayfasını döndüren aksiyon metodudur.  
+return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });: Hata sayfasına bir ErrorViewModel ile birlikte döner. RequestId, hatanın izlenebilir olması için kullanılır.  
 
