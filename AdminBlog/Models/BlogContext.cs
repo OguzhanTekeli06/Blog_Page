@@ -1,5 +1,5 @@
 using System;
-using Adminblog.Models;
+using AdminBlog.Models;
 using Microsoft.EntityFrameworkCore;
 
 

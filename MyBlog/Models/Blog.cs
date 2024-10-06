@@ -1,6 +1,6 @@
 using System;
 
-namespace Adminblog.Models{
+namespace MyBlog.Models{
 
     public class Blog{
         public int Id { get;set;}

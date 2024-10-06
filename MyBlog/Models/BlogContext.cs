@@ -1,9 +1,9 @@
 using System;
-using Adminblog.Models;
+using MyBlog.Models;
 using Microsoft.EntityFrameworkCore;
 
 
-namespace AdminBlog.Models{
+namespace MyBlog.Models{
 
 
     public class BlogContext : DbContext{
