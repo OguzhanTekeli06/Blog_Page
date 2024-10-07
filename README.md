@@ -201,11 +201,25 @@ await _context.SaveChangesAsync();: Bu satır ise, yapılan değişiklikleri ver
 return RedirectToAction(nameof(Category));: Bu satır, kategori ekleme işlemi tamamlandıktan sonra Category adlı aksiyona (sayfaya) yönlendirme yapar.  
 
 **public IActionResult Category()
-{
-    return View();
-}**
+    {
+        List<Category> list= _context.Category.ToList(); 
+        return View(list);
+    }**
 
-public IActionResult Category(): Bu, kategori ile ilgili bir sayfa döndüren aksiyon metodudur. View() metoduyla kategorilerin görüntüleneceği bir sayfa döndürür.
+1. public IActionResult Category()
+Bu, bir action metodudur ve IActionResult türünde bir sonuç döndürür. IActionResult, bir action metodunun farklı türde sonuçlar döndürebileceğini belirtir. Örneğin, bir sayfa (View), JSON verisi ya da bir yönlendirme döndürebilir.
+
+2. List<Category> list = _context.Category.ToList();
+Bu satırda:
+
+_context.Category: BlogContext isimli veritabanı bağlamı (context) aracılığıyla Category tablosuna erişiyoruz. Bu tablo veritabanındaki tüm kategori verilerini içerir.
+
+.ToList(): Bu metod, Category tablosundaki tüm verileri çeker ve bir List<Category> (kategori listesi) olarak döndürür. Yani, veritabanındaki tüm kategori kayıtlarını liste halinde alıyoruz.
+
+Bu adımda herhangi bir filtreleme uygulanmaz, tüm kategoriler listelenir.
+
+3. return View(list);
+View(list): Bu satır, list adındaki List<Category> nesnesini View'e (yani kullanıcıya gösterilecek HTML sayfasına) gönderir. Bu, veritabanından çekilen tüm kategorileri kullanıcıya gösterecek View'de (örneğin Category.cshtml dosyasında) kullanılabilir hale getirir.
 
 **public IActionResult Index()
 {
