@@ -24,7 +24,8 @@ public class HomeController : Controller
 
     public IActionResult Category()
     {
-        return View();
+        List<Category> list= _context.Category.ToList(); // burda listemizi yolluyoruz işte. herhangi bir filtereleme olmadan hepsini çeker böyle.
+        return View(list);
     }
 
     public IActionResult Index()

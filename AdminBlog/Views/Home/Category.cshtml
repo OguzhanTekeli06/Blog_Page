@@ -1,8 +1,28 @@
-﻿@{
+﻿@model IEnumerable<AdminBlog.Models.Category>
+@*model olarak bir katregory listesi ekledik burda*@
+@{
     ViewData["Title"] = "Category";
 }
 
 <button type="button" onclick="$('#CategoryModal').modal('show')" class="btn btn btn-primary">Kategori Ekle</button>
+
+<table class="table table-hover">
+  <thead>
+    <th scope="col">Id</th>
+    <th scope="col">Name</th>
+  </thead>
+  <tbody>
+      @foreach(var item in Model){
+        <th scope="row">@item.Id</th>
+        <td>@item.Name</td>
+      }
+
+
+  </tbody>
+
+
+
+</table>
 
 <div class="modal" id="CategoryModal" tabindex="-1">
   <div class="modal-dialog">
