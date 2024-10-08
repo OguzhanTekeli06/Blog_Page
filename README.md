@@ -1,4 +1,5 @@
-**ASP.NET Core MVC projesi**, Microsoft’un sunduğu bir framework olan ASP.NET Core ile web uygulamaları geliştirmek için kullanılan bir modeldir. MVC (Model-View-Controller) mimarisi, yazılımda modülerlik ve kodun daha düzenli olmasını sağlamak amacıyla kullanılır. Bu mimari, uygulamanın işleyişini 3 temel katmana ayırır:
+#ASP.NET Core MVC projesi,
+Microsoft’un sunduğu bir framework olan ASP.NET Core ile web uygulamaları geliştirmek için kullanılan bir modeldir. MVC (Model-View-Controller) mimarisi, yazılımda modülerlik ve kodun daha düzenli olmasını sağlamak amacıyla kullanılır. Bu mimari, uygulamanın işleyişini 3 temel katmana ayırır:
 
 1. Model (M)
 Görev: Uygulamanın veri ve iş mantığını temsil eder. Veritabanıyla etkileşime giren kodlar genellikle modelde bulunur.
