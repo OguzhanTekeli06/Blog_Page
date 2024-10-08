@@ -1,4 +1,4 @@
-#ASP.NET Core MVC projesi,
+# ASP.NET Core MVC projesi,
 Microsoft’un sunduğu bir framework olan ASP.NET Core ile web uygulamaları geliştirmek için kullanılan bir modeldir. MVC (Model-View-Controller) mimarisi, yazılımda modülerlik ve kodun daha düzenli olmasını sağlamak amacıyla kullanılır. Bu mimari, uygulamanın işleyişini 3 temel katmana ayırır:
 
 1. Model (M)
@@ -126,7 +126,7 @@ Sonuç:
 
 
  ------------------------------------------
- Veri Tabanı:
+ ## Veri Tabanı:
 
  
  ![alt text](<Ekran görüntüsü 2024-10-03 223504.png>)
@@ -155,7 +155,7 @@ dotnet add package Microsoft.EntityFrameworkCore.Design
 
 
 
-Controller Detayları:
+## Controller Detayları:
 
 **using System.Diagnostics;** <br>
 **using Microsoft.AspNetCore.Mvc;** <br> 
