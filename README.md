@@ -200,6 +200,48 @@ await _context.AddAsync(category);: Bu satır, veritabanına yeni bir kategori e
 await _context.SaveChangesAsync();: Bu satır ise, yapılan değişiklikleri veritabanına kaydeder. Yine asenkron olarak çalışır.  
 return RedirectToAction(nameof(Category));: Bu satır, kategori ekleme işlemi tamamlandıktan sonra Category adlı aksiyona (sayfaya) yönlendirme yapar.  
 
+**public async Task<IActionResult> DeleteCategory(int? Id){
+    if (Id == null)
+    {
+        return NotFound(); // Eğer Id null ise, hata sayfası döndür
+    }
+    var category = await _context.Category.FindAsync(Id);
+    if (category == null)
+    {
+        return NotFound(); // Eğer bu Id'ye sahip bir kategori yoksa, hata sayfası döndür
+    }
+    _context.Category.Remove(category); // Kategoriyi sil
+    await _context.SaveChangesAsync();   // Değişiklikleri veritabanına kaydet
+    return RedirectToAction(nameof(Category)); // Silme işleminden sonra Category sayfasına yönlendir
+}**
+
+1. public async Task<IActionResult> DeleteCategory(int? Id)
+Bu metod bir Task<IActionResult> türünde geri dönüş yapıyor, yani asenkron (async) çalışacak ve bir IActionResult döndürecek. Parametre olarak int? Id alıyor, bu da bu metodun nullable (boş olabilir) bir int alabileceği anlamına geliyor. Id silmek istediğin kategoriyi belirten kimlik (ID) numarasıdır.
+
+2.if (Id == null)
+{
+    return NotFound(); // Eğer Id null ise, hata sayfası döndür
+}
+İlk olarak Id'nin null olup olmadığını kontrol ediyoruz. Eğer kullanıcı geçersiz bir Id gönderirse ya da hiç Id göndermezse, bu durumda NotFound() metodu çağrılıyor, yani "404 Not Found" hata sayfası geri dönüyor.
+
+3.var category = await _context.Category.FindAsync(Id);
+Eğer Id null değilse, bu satırda veritabanından bu Id'ye sahip kategoriyi arıyoruz. FindAsync(Id) metodu, asenkron olarak ilgili kategoriyi bulup category adlı değişkene atıyor.
+
+4.if (category == null)
+{
+    return NotFound(); // Eğer bu Id'ye sahip bir kategori yoksa, hata sayfası döndür
+}
+Kategori bulunamazsa (örneğin, bu Id'ye sahip bir kategori veritabanında yoksa), yine bir "404 Not Found" hatası döndürülüyor.
+
+5._context.Category.Remove(category); // Kategoriyi sil
+Eğer kategori veritabanında bulunmuşsa, bu satırda Remove metodu kullanılarak veritabanından bu kategori siliniyor. Yani _context.Category.Remove(category) ile bu kategori silme işlemi için işaretleniyor.
+
+6.await _context.SaveChangesAsync();   // Değişiklikleri veritabanına kaydet
+Bu satırda, yapılan değişikliklerin (silme işleminin) veritabanına kalıcı olarak kaydedilmesi sağlanıyor. SaveChangesAsync metodu da asenkron olarak çalışıyor.
+
+7.return RedirectToAction(nameof(Category)); // Silme işleminden sonra Category sayfasına yönlendir
+Son olarak, silme işlemi tamamlandığında kullanıcıyı tekrar "Category" sayfasına yönlendiriyoruz. RedirectToAction metodu, belirttiğimiz başka bir metoda yönlendirme yapıyor ve burada Category metoduna dönüyoruz, yani kategori listesini tekrar gösteren sayfaya.
+
 **public IActionResult Category()
     {
         List<Category> list= _context.Category.ToList(); 
