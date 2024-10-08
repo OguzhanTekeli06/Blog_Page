@@ -22,6 +22,27 @@ public class HomeController : Controller
         return RedirectToAction(nameof(Category));
     }
 
+    public async Task<IActionResult> DeleteCategory(int? Id)
+{
+    if (Id == null)
+    {
+        return NotFound(); // Eğer Id null ise, hata sayfası döndür
+    }
+
+    var category = await _context.Category.FindAsync(Id);
+
+    if (category == null)
+    {
+        return NotFound(); // Eğer bu Id'ye sahip bir kategori yoksa, hata sayfası döndür
+    }
+
+    _context.Category.Remove(category); // Kategoriyi sil
+    await _context.SaveChangesAsync();   // Değişiklikleri veritabanına kaydet
+
+    return RedirectToAction(nameof(Category)); // Silme işleminden sonra Category sayfasına yönlendir
+}
+
+
     public IActionResult Category()
     {
         List<Category> list= _context.Category.ToList(); // burda listemizi yolluyoruz işte. herhangi bir filtereleme olmadan hepsini çeker böyle.
