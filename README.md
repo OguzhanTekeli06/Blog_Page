@@ -145,13 +145,14 @@ builder.Services.AddDbContext<BlogContext>(options => options.UseSqlServer(conne
 daha sonra terminalde 
 >dotnet ef migrations add first
 >dotnet ef database update
-kodlarını çalıştırdık.( Çalışmazlarsa önce -> dotnet tool install --global dotnet-ef)
+kodlarını çalıştırdık.
+( Çalışmazlarsa önce -> dotnet tool install --global dotnet-ef)  
 Böylece veri tabanımız ve modellere göre tablolarımız oluşturulumuş oldu.
 
 İndirilen Paketler:(bu komutlar ile)
-dotnet add package Microsoft.EntityFrameworkCore
-dotnet add package Microsoft.EntityFrameworkCore.SqlServer
-dotnet add package Microsoft.EntityFrameworkCore.Design 
+dotnet add package Microsoft.EntityFrameworkCore  
+dotnet add package Microsoft.EntityFrameworkCore.SqlServer  
+dotnet add package Microsoft.EntityFrameworkCore.Design   
 
 
 
