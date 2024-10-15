@@ -142,10 +142,10 @@ Sonuç:
 program.cs dosyasına 
 var connectionString = builder.Configuration.GetConnectionString("BlogDb");
 builder.Services.AddDbContext<BlogContext>(options => options.UseSqlServer(connectionString));
-daha sonra terminalde 
->dotnet ef migrations add first
->dotnet ef database update  
-kodlarını çalıştırdık.  
+daha sonra terminalde   
+>dotnet ef migrations add first    
+>dotnet ef database update    
+kodlarını çalıştırdık.    
 ( Çalışmazlarsa önce -> dotnet tool install --global dotnet-ef)    
 Böylece veri tabanımız ve modellere göre tablolarımız oluşturulumuş oldu.
 
