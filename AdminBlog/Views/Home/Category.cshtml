@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<AdminBlog.Models.Category>
 @*model olarak bir katregory listesi ekledik burda*@
 @{
-    ViewData["Title"] = "Category";
+  ViewData["Title"] = "Category";
 }
 
 <button type="button" onclick="$('#CategoryModal').modal('show')" class="btn btn btn-primary">Kategori Ekle</button>
@@ -14,19 +14,17 @@
 
   </thead>
   <tbody>
-      @foreach(var item in Model){
-        <tr>
+    @foreach (var item in Model)
+    {
+      <tr>
         <th scope="row">@item.Id</th>
         <td>@item.Name</td>
-        <td><a class="btn btn-danger" asp-route-id="@item.Id" asp-action="DeleteCategory">sil</a></td>
-        </tr>
-      }
-
-
+        <td><a class="btn btn-danger" asp-route-id="@item.Id" asp-action="DeleteCategory">Sil</a>
+          <button class="btn btn-secondary" onclick="updateForm(@item.Id)" type="button">Güncelle</button>
+        </td>
+      </tr>
+    }
   </tbody>
-
-
-
 </table>
 
 <div class="modal" id="CategoryModal" tabindex="-1">
@@ -37,18 +35,54 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <form method="POST" action="/Home/AddCategory" autocomplete="off">
-      <div class="modal-body">
-        <div class="form-group">
-            <input type="hidden" name="Id" class="form-control">
-            <input type="text" name="Name" class="form-control">  @* name kısımdaki isimler aynı olmak zorunda şu an*@
+        <div class="modal-body">
+          <div class="form-group">
+            <input type="hidden" name="Id" id="Id" class="form-control">
+            <input type="text" name="Name" id="Name" class="form-control"> @* name kısımdaki isimler aynı olmak zorunda
+            şu an*@
+
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" onclick="clearForm()" data-bs-dismiss="modal">Kapat</button>
+          <button type="submit" id="saveBtn" class="btn btn-primary">Ekle</button>
+          <button type="submit" id="updateBtn" class="btn btn-primary">güncelle</button>
 
         </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kapat</button>
-        <button type="submit" class="btn btn-primary">Ekle</button>
-      </div>
       </form>
     </div>
   </div>
 </div>
+
+@section Scripts {
+  <script>
+    $(() => clearFrom())
+    function updateForm(Id) {
+      fetch('/Home/CategoryDetails?Id=' + Id)
+        .then(res => {
+          if (!res.ok) { // Eğer HTTP cevabı 200 değilse hata fırlat
+            throw new Error('Kategori bulunamadı veya ağ sorunu: ' + res.statusText);
+          }
+          return res.json(); // Eğer başarılıysa JSON formatına çevir
+        })
+        .then(res => {
+          $('#Id').val(res.id);  // Id alanını doldur
+          $('#Name').val(res.name);  // Name alanını doldur
+        })
+        .catch(error => {
+          console.error('Error fetching category details:', error); // Konsola hata mesajı yazdır
+          alert("Kategori bilgileri alınamadı, lütfen tekrar deneyin."); // Kullanıcıya hata mesajı göster
+        });
+
+      $('#saveBtn').hide();  // Ekle butonunu gizle
+      $('#updateBtn').show();  // Güncelle butonunu göster
+      $('#CategoryModal').modal('show');  // Modalı aç
+    }
+    function clearFrom() {
+      $('#Id').val('')
+      $('#Name').val('')
+      $('#saveBtn').show();
+      $('#updateBtn').hide();
+    }
+  </script>
+}@*update fonksiyonuun buradaya script olarak ekledik*@
