@@ -52,6 +52,63 @@ public class HomeController : Controller
         List<Category> list= _context.Category.ToList(); // burda listemizi yolluyoruz işte. herhangi bir filtereleme olmadan hepsini çeker böyle.
         return View(list);
     }
+
+
+
+
+
+
+
+
+
+
+    public IActionResult Author()
+    {
+        List<Author> list= _context.Author.ToList(); // burda listemizi yolluyoruz işte. herhangi bir filtereleme olmadan hepsini çeker böyle.
+        return View(list);
+    }
+
+   public async Task<IActionResult> AddAuthor(Author author){ //update metodunu ayrı yazmaya gerek yok
+        if(author.Id == 0){
+            await _context.AddAsync(author);
+        }
+        else{
+            _context.Update(author);
+        }
+        await _context.SaveChangesAsync();
+        return RedirectToAction(nameof(Author));
+    }
+    public async Task<IActionResult> AuthorDetails(int Id) {  
+    var author = await _context.Author.FindAsync(Id);
+    if (author == null) {
+        return NotFound(); // Eğer category null ise hata döndür
+    }
+    return Json(author);
+}
+ public async Task<IActionResult> DeleteAuthor(int? Id)
+{
+    if (Id == null)
+    {
+        return NotFound(); // Eğer Id null ise, hata sayfası döndür
+    }
+    var author = await _context.Author.FindAsync(Id);
+    if (author == null)
+    {
+        return NotFound(); // Eğer bu Id'ye sahip bir yazar yoksa, hata sayfası döndür
+    }
+    _context.Author.Remove(author); // yazar sil
+    await _context.SaveChangesAsync();   // Değişiklikleri veritabanına kaydet
+
+    return RedirectToAction(nameof(Author)); // Silme işleminden sonra Author sayfasına yönlendir
+}
+
+
+
+
+
+
+
+
     public IActionResult Index()
     {
         return View();
