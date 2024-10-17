@@ -355,7 +355,7 @@ Açıklama: Bu ayar, oturum çerezinin JavaScript tarafından erişilmesini enge
 * options.Cookie.IsEssential = true;
 Açıklama: Bu ayar, çerezin gerekli olduğunu belirtir. Eğer bir kullanıcı çerezleri reddederse, IsEssential ayarı true olarak ayarlandığında, uygulama oturum çerezini yine de kullanmaya çalışır. Bu, uygulamanın belirli işlevselliği için çerezlere ihtiyaç duyduğu durumlarda kullanılır.
 
-*app.UseSession() Middleware'inin İşlevi
+* app.UseSession() Middleware'inin İşlevi
 Oturum Yönetimi: UseSession, kullanıcı oturumlarının yönetimini sağlar. Kullanıcı istekleri arasında oturum verilerini saklamanıza ve bu verilere erişmenize olanak tanır.
 Oturum Verileri: Middleware, her bir isteğin başında oturum verilerini yükler ve istek tamamlandıktan sonra bu verileri güncelleyebilir. Böylece kullanıcı oturumunun sürekliliği sağlanır.
 Zincirleme: Middleware'ler, UseRouting, UseAuthorization gibi diğer middleware'lerle birlikte çalışabilir ve belirli bir iş akışında yer alırlar.
