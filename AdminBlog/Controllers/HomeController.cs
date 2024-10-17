@@ -115,6 +115,19 @@ public class HomeController : Controller
 
 
 
+    public IActionResult Login(string Email,String Password){
+        var author = _context.Author.FirstOrDefault(w=> w.Email == Email && w.Password == Password );
+        if(author== null){
+            return RedirectToAction(nameof(Index));
+        }
+        else{
+            HttpContext.Session.SetInt32("id",author.Id); 
+        }
+         return RedirectToAction(nameof(Index));
+    }
+
+
+
 
 
 

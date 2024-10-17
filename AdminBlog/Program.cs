@@ -5,6 +5,14 @@ var builder = WebApplication.CreateBuilder(args);
 
 var connectionString = builder.Configuration.GetConnectionString("BlogDb");
 builder.Services.AddDbContext<BlogContext>(options => options.UseSqlServer(connectionString));
+// sql bağlanma
+
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(30); // Oturum süresi
+    options.Cookie.HttpOnly = true; // Çerez güvenliği
+    options.Cookie.IsEssential = true; // Çerezin gerekli olduğunu belirt
+});
 
 
 // Add services to the container.
@@ -22,7 +30,7 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-
+app.UseSession();    // session
 app.UseRouting();
 
 app.UseAuthorization();
