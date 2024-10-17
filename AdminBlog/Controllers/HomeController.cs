@@ -9,47 +9,52 @@ public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
     private readonly BlogContext _context;
-    public HomeController(ILogger<HomeController> logger,BlogContext context)
+    public HomeController(ILogger<HomeController> logger, BlogContext context)
     {
         _logger = logger;
         _context = context;
     }
-    public async Task<IActionResult> AddCategory(Category category){ //update metodunu ayrı yazmaya gerek yok
-        if(category.Id == 0){
+    public async Task<IActionResult> AddCategory(Category category)
+    { //update metodunu ayrı yazmaya gerek yok
+        if (category.Id == 0)
+        {
             await _context.AddAsync(category);
         }
-        else{
+        else
+        {
             _context.Update(category);
         }
         await _context.SaveChangesAsync();
         return RedirectToAction(nameof(Category));
     }
-    public async Task<IActionResult> CategoryDetails(int Id) {
-    var category = await _context.Category.FindAsync(Id);
-    if (category == null) {
-        return NotFound(); // Eğer category null ise hata döndür
+    public async Task<IActionResult> CategoryDetails(int Id)
+    {
+        var category = await _context.Category.FindAsync(Id);
+        if (category == null)
+        {
+            return NotFound(); // Eğer category null ise hata döndür
+        }
+        return Json(category);
     }
-    return Json(category);
-}
     public async Task<IActionResult> DeleteCategory(int? Id)
-{
-    if (Id == null)
     {
-        return NotFound(); // Eğer Id null ise, hata sayfası döndür
-    }
-    var category = await _context.Category.FindAsync(Id);
-    if (category == null)
-    {
-        return NotFound(); // Eğer bu Id'ye sahip bir kategori yoksa, hata sayfası döndür
-    }
-    _context.Category.Remove(category); // Kategoriyi sil
-    await _context.SaveChangesAsync();   // Değişiklikleri veritabanına kaydet
+        if (Id == null)
+        {
+            return NotFound(); // Eğer Id null ise, hata sayfası döndür
+        }
+        var category = await _context.Category.FindAsync(Id);
+        if (category == null)
+        {
+            return NotFound(); // Eğer bu Id'ye sahip bir kategori yoksa, hata sayfası döndür
+        }
+        _context.Category.Remove(category); // Kategoriyi sil
+        await _context.SaveChangesAsync();   // Değişiklikleri veritabanına kaydet
 
-    return RedirectToAction(nameof(Category)); // Silme işleminden sonra Category sayfasına yönlendir
-}
+        return RedirectToAction(nameof(Category)); // Silme işleminden sonra Category sayfasına yönlendir
+    }
     public IActionResult Category()
     {
-        List<Category> list= _context.Category.ToList(); // burda listemizi yolluyoruz işte. herhangi bir filtereleme olmadan hepsini çeker böyle.
+        List<Category> list = _context.Category.ToList(); // burda listemizi yolluyoruz işte. herhangi bir filtereleme olmadan hepsini çeker böyle.
         return View(list);
     }
 
@@ -64,43 +69,48 @@ public class HomeController : Controller
 
     public IActionResult Author()
     {
-        List<Author> list= _context.Author.ToList(); // burda listemizi yolluyoruz işte. herhangi bir filtereleme olmadan hepsini çeker böyle.
+        List<Author> list = _context.Author.ToList(); // burda listemizi yolluyoruz işte. herhangi bir filtereleme olmadan hepsini çeker böyle.
         return View(list);
     }
 
-   public async Task<IActionResult> AddAuthor(Author author){ //update metodunu ayrı yazmaya gerek yok
-        if(author.Id == 0){
+    public async Task<IActionResult> AddAuthor(Author author)
+    { //update metodunu ayrı yazmaya gerek yok
+        if (author.Id == 0)
+        {
             await _context.AddAsync(author);
         }
-        else{
+        else
+        {
             _context.Update(author);
         }
         await _context.SaveChangesAsync();
         return RedirectToAction(nameof(Author));
     }
-    public async Task<IActionResult> AuthorDetails(int Id) {  
-    var author = await _context.Author.FindAsync(Id);
-    if (author == null) {
-        return NotFound(); // Eğer category null ise hata döndür
-    }
-    return Json(author);
-}
- public async Task<IActionResult> DeleteAuthor(int? Id)
-{
-    if (Id == null)
+    public async Task<IActionResult> AuthorDetails(int Id)
     {
-        return NotFound(); // Eğer Id null ise, hata sayfası döndür
+        var author = await _context.Author.FindAsync(Id);
+        if (author == null)
+        {
+            return NotFound(); // Eğer category null ise hata döndür
+        }
+        return Json(author);
     }
-    var author = await _context.Author.FindAsync(Id);
-    if (author == null)
+    public async Task<IActionResult> DeleteAuthor(int? Id)
     {
-        return NotFound(); // Eğer bu Id'ye sahip bir yazar yoksa, hata sayfası döndür
-    }
-    _context.Author.Remove(author); // yazar sil
-    await _context.SaveChangesAsync();   // Değişiklikleri veritabanına kaydet
+        if (Id == null)
+        {
+            return NotFound(); // Eğer Id null ise, hata sayfası döndür
+        }
+        var author = await _context.Author.FindAsync(Id);
+        if (author == null)
+        {
+            return NotFound(); // Eğer bu Id'ye sahip bir yazar yoksa, hata sayfası döndür
+        }
+        _context.Author.Remove(author); // yazar sil
+        await _context.SaveChangesAsync();   // Değişiklikleri veritabanına kaydet
 
-    return RedirectToAction(nameof(Author)); // Silme işleminden sonra Author sayfasına yönlendir
-}
+        return RedirectToAction(nameof(Author)); // Silme işleminden sonra Author sayfasına yönlendir
+    }
 
 
 
