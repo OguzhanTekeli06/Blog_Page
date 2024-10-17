@@ -325,3 +325,47 @@ public IActionResult Error(): Hata sayfasını döndüren aksiyon metodudur.
 return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });: Hata sayfasına bir ErrorViewModel ile birlikte döner. RequestId, hatanın izlenebilir olması için kullanılır.  
 
 ## Session İşlmeleri:
+**dotnet add package Microsoft.Aspnetcore.Session**     
+komutu ile paketimizi indiriyoruz.dotnet add package Microsoft.AspNetCore.Session, ASP.NET Core projelerinde oturum (session) yönetimi sağlamak için kullanılan bir NuGet paketini projeye ekler. Oturum yönetimi,  
+  kullanıcıların uygulamanızda kalıcı bir şekilde veri saklamasına olanak tanır. Örneğin, bir kullanıcının oturumu boyunca çeşitli verilere erişimini sağlamak için kullanılabilir.
+
+**Kullanım Amaçları:**
+1. Kullanıcı Verisi Saklama: Kullanıcıların oturumları boyunca bazı verileri saklamak için kullanılabilir (örneğin, kullanıcı tercihleri, sepet bilgileri).
+
+2. Oturum Süresi: Oturum süresi boyunca verilerin saklanmasını sağlar. Oturum, kullanıcı tarayıcısını kapatana veya belirli bir süre geçtikten sonra sona erebilir.
+
+3. State Management (Durum Yönetimi): Uygulama içindeki kullanıcı durumunu yönetmek için kullanılır.
+
+**Program.cs dosyasındaki eklemeler:** 
+
+**builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(30); // Oturum süresi
+    options.Cookie.HttpOnly = true; // Çerez güvenliği
+    options.Cookie.IsEssential = true; // Çerezin gerekli olduğunu belirt
+});
+app.UseSession();**
+
+* builder.Services.AddSession(...)
+Açıklama: Bu satır, ASP.NET Core uygulamanıza oturum yönetimi ekler. Oturum, kullanıcıların web uygulamanızda kimlik bilgileri ve diğer bilgileri saklamasına olanak tanır. Bu, kullanıcıların oturumları boyunca veri saklamak için kullanılır.
+* options.IdleTimeout = TimeSpan.FromMinutes(30);
+Açıklama: Bu ayar, kullanıcının oturumunun ne kadar süre boyunca etkin olmayacağını belirtir. Eğer kullanıcı 30 dakika boyunca hiçbir etkinlik gerçekleştirmezse, oturum zaman aşımına uğrayacaktır. Bu, güvenlik açısından önemlidir, çünkü oturumun uzun süre aktif kalmasını engeller.
+* options.Cookie.HttpOnly = true;
+Açıklama: Bu ayar, oturum çerezinin JavaScript tarafından erişilmesini engeller. Bu, XSS (Cross-Site Scripting) saldırılarına karşı bir güvenlik önlemidir. HttpOnly ayarı true olduğunda, çerez yalnızca sunucu tarafından erişilebilir ve istemci tarafında (örneğin, JavaScript) erişilemez.
+* options.Cookie.IsEssential = true;
+Açıklama: Bu ayar, çerezin gerekli olduğunu belirtir. Eğer bir kullanıcı çerezleri reddederse, IsEssential ayarı true olarak ayarlandığında, uygulama oturum çerezini yine de kullanmaya çalışır. Bu, uygulamanın belirli işlevselliği için çerezlere ihtiyaç duyduğu durumlarda kullanılır.
+
+*app.UseSession() Middleware'inin İşlevi
+Oturum Yönetimi: UseSession, kullanıcı oturumlarının yönetimini sağlar. Kullanıcı istekleri arasında oturum verilerini saklamanıza ve bu verilere erişmenize olanak tanır.
+Oturum Verileri: Middleware, her bir isteğin başında oturum verilerini yükler ve istek tamamlandıktan sonra bu verileri güncelleyebilir. Böylece kullanıcı oturumunun sürekliliği sağlanır.
+Zincirleme: Middleware'ler, UseRouting, UseAuthorization gibi diğer middleware'lerle birlikte çalışabilir ve belirli bir iş akışında yer alırlar.
+Middleware Kullanımının Genel Yapısı
+ASP.NET Core'da middleware'ler genellikle Configure metodunda aşağıdaki gibi sıralanır:
+
+app.UseRouting();
+app.UseSession(); // Oturum middleware'ini burada çağırıyoruz.
+app.UseAuthorization();
+
+Bu yapı, isteklerin sırayla nasıl işleneceğini belirler ve UseSession, diğer middleware'lerle birlikte çalışarak oturum yönetimini etkinleştirir.    
+Oturum middleware'i, HTTP istekleri sırasında oturum bilgilerini yönetir. Bu, kullanıcı oturumu sırasında saklanan verilerin kullanılabilmesini sağlar. Middleware, isteklerin geldiği sırada oturum bilgilerini yükler ve yanıt sırasında günceller.
+
