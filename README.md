@@ -362,9 +362,9 @@ Zincirleme: Middleware'ler, UseRouting, UseAuthorization gibi diğer middleware'
 Middleware Kullanımının Genel Yapısı
 ASP.NET Core'da middleware'ler genellikle Configure metodunda aşağıdaki gibi sıralanır:
 
-app.UseRouting();
-app.UseSession(); // Oturum middleware'ini burada çağırıyoruz.
-app.UseAuthorization();
+app.UseRouting();     
+app.UseSession(); // Oturum middleware'ini burada çağırıyoruz.     
+app.UseAuthorization();    
 
 Bu yapı, isteklerin sırayla nasıl işleneceğini belirler ve UseSession, diğer middleware'lerle birlikte çalışarak oturum yönetimini etkinleştirir.    
 Oturum middleware'i, HTTP istekleri sırasında oturum bilgilerini yönetir. Bu, kullanıcı oturumu sırasında saklanan verilerin kullanılabilmesini sağlar. Middleware, isteklerin geldiği sırada oturum bilgilerini yükler ve yanıt sırasında günceller.
