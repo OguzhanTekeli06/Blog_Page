@@ -156,7 +156,7 @@ dotnet add package Microsoft.EntityFrameworkCore.Design
 
 
 
-## Controller Detayları:
+## Controller Detayları(Kategori ile ilgili kısımlar):
 
 **using System.Diagnostics;** <br>
 **using Microsoft.AspNetCore.Mvc;** <br> 
@@ -324,3 +324,4 @@ NoStore = true: Tarayıcının bu sayfayı depolamaması gerektiğini belirtir.
 public IActionResult Error(): Hata sayfasını döndüren aksiyon metodudur.  
 return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });: Hata sayfasına bir ErrorViewModel ile birlikte döner. RequestId, hatanın izlenebilir olması için kullanılır.  
 
+## Session İşlmeleri:
