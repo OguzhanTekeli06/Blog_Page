@@ -189,18 +189,28 @@ private readonly BlogContext _context;: Bu satır ise, veritabanı işlemleri ya
 public HomeController(ILogger<HomeController> logger, BlogContext context): Bu, HomeController sınıfının yapıcı metodudur. Kontrolör sınıfı ilk oluşturulduğunda çalıştırılır. Logger ve BlogContext nesneleri, yapıcı metodun parametreleri olarak alınır.
 _logger = logger; ve _context = context;: Parametre olarak gelen logger ve context nesnelerini sınıf içindeki private alanlara atar, böylece bu nesneler diğer metodlar tarafından kullanılabilir hale gelir.
 
-**public async Task<IActionResult> AddCategory(Category category)
-{
-    await _context.AddAsync(category);
-    await _context.SaveChangesAsync();
-    return RedirectToAction(nameof(Category));
-}**
+**public async Task<IActionResult> AddCategory(Category category){ //update metodunu ayrı yazmaya gerek yok
+        if(category.Id == 0){
+            await _context.AddAsync(category);
+        }
+        else{
+            _context.Update(category);
+        }
+        await _context.SaveChangesAsync();
+        return RedirectToAction(nameof(Category));
+    }**
 
-public async Task<IActionResult> AddCategory(Category category): Bu, bir kategori eklemek için kullanılan asenkron bir metottur. Category adında bir model nesnesi parametre olarak alınır.    
-async Task<IActionResult>: Bu, metodun asenkron olduğunu belirtir. Asenkron metotlar, uzun süren işlemleri engellemeden yapılmasını sağlar.  
-await _context.AddAsync(category);: Bu satır, veritabanına yeni bir kategori ekler. await ifadesi, bu işlemin asenkron yapılmasını sağlar.  
-await _context.SaveChangesAsync();: Bu satır ise, yapılan değişiklikleri veritabanına kaydeder. Yine asenkron olarak çalışır.  
-return RedirectToAction(nameof(Category));: Bu satır, kategori ekleme işlemi tamamlandıktan sonra Category adlı aksiyona (sayfaya) yönlendirme yapar. 
+* Bu metod, asenkron bir şekilde bir kategori eklemeye veya güncellemeye yarar.
+* Category category: Bu metod, parametre olarak bir Category nesnesi alır. Bu nesne, 
+ kategoriyle ilgili tüm verileri (örneğin adı, ID'si gibi) içerir.
+* Burada, ekleme mi yoksa güncelleme mi yapılacağına karar veriliyor.
+* category.Id == 0: Eğer kategorinin Id değeri 0 ise, bu, kategori veritabanında daha önce kaydedilmemiş (yeni) bir kayıt olduğunu gösterir. Dolayısıyla bu durumda bir ekleme işlemi yapılır.
+* Eğer kategori yeni ise, AddAsync metodu kullanılarak kategori veritabanına eklenir. Bu işlem de asenkron olarak yapılır.
+* Eğer Id sıfır değilse (kategori zaten var ise), o zaman bir güncelleme işlemi yapılır.
+_context.Update(category): Burada, mevcut kategori güncellenir. Bu işlem asenkron değildir çünkü güncelleme işlemi bellekte hemen yapılabilir. Ancak değişikliklerin veritabanına kaydedilmesi için beklemek gerekecek.
+* await _context.SaveChangesAsync(); Bu satır, yapılan ekleme veya güncelleme işlemlerinin veritabanına işlenmesini sağlar. SaveChangesAsync işlemi asenkron olarak gerçekleştirilir, bu da işlemin başarılı olmasını bekler.
+* return RedirectToAction(nameof(Category)); İşlem tamamlandıktan sonra, RedirectToAction metodu kullanılarak kullanıcının Category sayfasına yönlendirilmesi sağlanır.
+nameof(Category): Bu, metodun adını belirtir ve kullanıcının kategori listesine geri döneceğini gösterir.
 
 **public async Task<IActionResult> CategoryDetails(int Id){
     var category = await _context.Category.FindAsync(Id);
