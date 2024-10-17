@@ -200,7 +200,29 @@ public async Task<IActionResult> AddCategory(Category category): Bu, bir kategor
 async Task<IActionResult>: Bu, metodun asenkron olduğunu belirtir. Asenkron metotlar, uzun süren işlemleri engellemeden yapılmasını sağlar.  
 await _context.AddAsync(category);: Bu satır, veritabanına yeni bir kategori ekler. await ifadesi, bu işlemin asenkron yapılmasını sağlar.  
 await _context.SaveChangesAsync();: Bu satır ise, yapılan değişiklikleri veritabanına kaydeder. Yine asenkron olarak çalışır.  
-return RedirectToAction(nameof(Category));: Bu satır, kategori ekleme işlemi tamamlandıktan sonra Category adlı aksiyona (sayfaya) yönlendirme yapar.  
+return RedirectToAction(nameof(Category));: Bu satır, kategori ekleme işlemi tamamlandıktan sonra Category adlı aksiyona (sayfaya) yönlendirme yapar. 
+
+**public async Task<IActionResult> CategoryDetails(int Id){
+    var category = await _context.Category.FindAsync(Id);
+    if (category == null){
+        return NotFound(); // Eğer category null ise hata döndür
+    }
+    return Json(category);
+}**
+
+* public: Bu metodun erişim seviyesi herkese açıktır, yani başka sınıflar da bu metoda erişebilir.
+* async: Bu metodun asenkron olduğunu belirtir, yani uzun süren işlemleri (örneğin veritabanı sorguları gibi) beklerken diğer işlemler devam edebilir. Böylece uygulama donmaz.
+* Task<IActionResult>: Bu metodun dönüş tipi, bir asenkron görevdir (Task). Bu görev tamamlandığında, bir IActionResult döndürecektir. IActionResult, bir HTTP yanıtı türüdür ve genellikle bir web uygulamasında * işlem sonucu (JSON, View, Redirect vs.) döner.
+* CategoryDetails(int Id): Bu metodun parametresi bir int türünden Id'dir. Bu, kategori ID'sini temsil eder ve ilgili kategori bilgilerini almak için kullanılır.
+* var category: category adında bir değişken tanımlanır. Bu değişken, ilgili kategorinin veritabanındaki kaydını tutacaktır.
+* await: await ifadesi, asenkron işlemin tamamlanmasını beklemek için kullanılır. Bu sayede bu satırda duraklama gerçekleşir ve veritabanı işlemi tamamlandıktan sonra devam eder.
+* _context.Category: Bu, Entity Framework Core ile kullanılan veritabanı bağlamını (_context) temsil eder ve Category tablosuna erişimi sağlar.
+* FindAsync(Id): Veritabanında Category tablosunda, verilen Id'ye sahip kaydı arar. Bu işlem asenkron olarak yapılır ve sonuçta kategori bulunursa category değişkenine atanır.
+* if (category == null): Eğer veritabanında verilen Id'ye sahip bir kategori bulunamazsa, yani FindAsync işlemi null dönerse bu blok çalışır.
+* return NotFound(): Eğer kategori bulunamazsa, HTTP 404 "Not Found" (Bulunamadı) hatası döndürülür. Bu, istemciye verilen ID'ye sahip bir kategori olmadığını bildirir.
+*return Json(category): Eğer kategori bulunduysa, bu satırda o kategori bilgileri JSON formatında geri döndürülür. JSON, web API'lerinde yaygın olarak kullanılan bir veri formatıdır ve istemcinin bu veriyi kolayca işlemesine olanak sağlar.
+
+
 
 **public async Task<IActionResult> DeleteCategory(int? Id){
     if (Id == null)
