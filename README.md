@@ -366,6 +366,12 @@ app.UseRouting();
 app.UseSession(); // Oturum middleware'ini burada çağırıyoruz.     
 app.UseAuthorization();    
 
+**Ekstra Notlar**
+Oturum Süresi: IdleTimeout özelliği, oturumun ne kadar süre içinde kullanılmadığında sona ereceğini belirler. Bu süreyi ihtiyacınıza göre ayarlayabilirsiniz.
+
+Cookie Ayarları: HttpOnly ayarı, JavaScript tarafından erişimi engeller; bu, güvenlik açısından önemlidir. IsEssential ayarı, kullanıcı cookie'lerini kabul etmeden oturumun çalışmasını sağlar.
+
+Önbellek Seçenekleri: AddDistributedMemoryCache() ile bellek içi bir önbellek kullanarak oturum verilerini saklarsınız. Alternatif olarak, daha kalıcı saklama çözümleri için Redis veya SQL Server gibi diğer önbellek çözümleri de kullanabilirsiniz.
 Bu yapı, isteklerin sırayla nasıl işleneceğini belirler ve UseSession, diğer middleware'lerle birlikte çalışarak oturum yönetimini etkinleştirir.    
 Oturum middleware'i, HTTP istekleri sırasında oturum bilgilerini yönetir. Bu, kullanıcı oturumu sırasında saklanan verilerin kullanılabilmesini sağlar. Middleware, isteklerin geldiği sırada oturum bilgilerini yükler ve yanıt sırasında günceller.
 
